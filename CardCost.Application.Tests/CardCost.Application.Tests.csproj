@@ -16,10 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\CardCost.Api\CardCost.Api.csproj" />
     <ProjectReference Include="..\CardCost.Application\CardCost.Application.csproj" />
     <ProjectReference Include="..\CardCost.Infrastructure\CardCost.Infrastructure.csproj" />

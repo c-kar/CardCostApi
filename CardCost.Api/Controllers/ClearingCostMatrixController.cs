@@ -79,9 +79,9 @@ namespace CardCost.Api.Controllers
 
         #region PutMethods
 
-        [HttpPut("{ccId}")]
+        [HttpPut("{id}")]
         [Produces("application/json")]
-        public async Task<IActionResult> UpdateClearingCost(int ccId, [FromBody] BaseModel request)
+        public async Task<IActionResult> UpdateClearingCost(int id, [FromBody] BaseModel request)
         {
             if (request == null)
                 return BadRequest();
@@ -89,7 +89,7 @@ namespace CardCost.Api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            await _clearingCostService.UpdateClearingCost(ccId, request);
+            await _clearingCostService.UpdateClearingCost(id, request);
             return Ok("Clearing Cost updated successfully.");
         }
 

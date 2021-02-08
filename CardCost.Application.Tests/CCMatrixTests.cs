@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using CardCost.Api.Controllers;
 using CardCost.Application.Interfaces;
-using CardCost.Application.Models.Base;
 using CardCost.Application.Services;
 using CardCost.Core.Repositories;
 using CardCost.Infrastructure.Repositories.Mock;

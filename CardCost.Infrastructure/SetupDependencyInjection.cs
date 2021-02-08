@@ -9,12 +9,14 @@ namespace CardCost.Infrastructure
     {
         public static IServiceCollection AddInfrastructureLayer(this IServiceCollection services)
         {
-            //services.AddTransient<ICardCostRepository, CardCostRepository>();
-            //services.AddTransient<ICCMatrixRepository, CCMatrixRepository>();
+            services.AddTransient<ICardCostRepository, CardCostRepository>();
+            services.AddTransient<ICCMatrixRepository, CCMatrixRepository>();
             services.AddTransient<IAccessUserRepository, AccessUserRepository>();
 
-            services.AddTransient<ICardCostRepository, CardCostMockRepository>();
-            services.AddTransient<ICCMatrixRepository, CCMatrixMockRepository>();
+            //Mock repositories for testing purposes
+
+            //services.AddTransient<ICardCostRepository, CardCostMockRepository>();
+            //services.AddTransient<ICCMatrixRepository, CCMatrixMockRepository>();
             return services;
         }
     }
