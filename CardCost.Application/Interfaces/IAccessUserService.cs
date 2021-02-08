@@ -1,4 +1,4 @@
-﻿using CardCost.Application.Models;
+﻿using CardCost.Core.Models;
 using CardCost.Core.Entities;
 using System.Threading.Tasks;
 

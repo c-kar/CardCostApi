@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CardCost.Application.Interfaces;
-using CardCost.Application.Models;
+using CardCost.Core.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;

@@ -1,5 +1,5 @@
-﻿using CardCost.Application.Models;
-using CardCost.Application.Models.Base;
+﻿using CardCost.Core.Models;
+using CardCost.Core.Models.Base;
 using System.Threading.Tasks;
 
 namespace CardCost.Application.Interfaces

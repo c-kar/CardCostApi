@@ -1,4 +1,4 @@
-﻿namespace CardCost.Application.Models.Base
+﻿namespace CardCost.Core.Models.Base
 {
     public class BaseModel
     {

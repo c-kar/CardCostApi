@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CardCost.Application.Interfaces;
-using CardCost.Application.Models;
+using CardCost.Core.Models;
 using CardCost.Core.Entities;
 using CardCost.Core.Repositories;
 using Microsoft.IdentityModel.Tokens;

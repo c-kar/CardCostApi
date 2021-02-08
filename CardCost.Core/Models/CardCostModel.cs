@@ -1,4 +1,4 @@
-﻿namespace CardCost.Application.Models
+﻿namespace CardCost.Core.Models
 {
     public class CardCostModel
     {

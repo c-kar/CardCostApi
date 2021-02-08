@@ -1,10 +1,8 @@
 ﻿using CardCost.Application.Interfaces;
-using CardCost.Application.Models.Base;
-using CardCost.Core.Entities;
+using CardCost.Core.Models.Base;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CardCost.Api.Controllers

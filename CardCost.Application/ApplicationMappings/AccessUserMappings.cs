@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using CardCost.Application.Models;
+using CardCost.Core.Models;
 using CardCost.Core.Entities;
 
 namespace CardCost.Application.ApplicationMappings
