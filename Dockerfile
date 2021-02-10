@@ -8,7 +8,7 @@ COPY ./CardCost.Api/ /app/CardCost.Api/
 COPY ./CardCost.Application/ /app/CardCost.Application/
 COPY ./CardCost.Core/ /app/CardCost.Core/
 COPY ./CardCost.Infrastructure/ /app/CardCost.Infrastructure/
-COPY ./CardCost.Application.Tests/ /app/CardCost.Application.Tests/
+COPY ./CardCost.Tests/ /app/CardCost.Tests/
 
 RUN dotnet restore ./CardCost.sln
 
