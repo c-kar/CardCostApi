@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using AutoFixture;
+using AutoMapper;
 using CardCost.Api.Controllers;
 using CardCost.Application.Interfaces;
 using CardCost.Application.Services;
@@ -12,10 +13,8 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Moq.Protected;
 using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -38,8 +37,22 @@ namespace CardCost.Application.Tests
             _mapper = new MapperConfiguration(c =>
                     c.AddProfile<ApplicationMappings.ApplicationMappings>()).CreateMapper();
 
-            var mockFactory = new Mock<IHttpClientFactory>();
-            _client = new MockBinListClient(mockFactory.Object);
+            // Arrange --- Mock IHttpClientFactory
+            var httpClientFactory = new Mock<IHttpClientFactory>();
+            var mockHttpMessageHandler = new Mock<HttpMessageHandler>();
+            var fixture = new Fixture();
+            mockHttpMessageHandler.Protected()
+                .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new StringContent("{'country': 'GR'}"),
+                });
+            var client = new HttpClient(mockHttpMessageHandler.Object);
+            client.BaseAddress = fixture.Create<Uri>();
+            httpClientFactory.Setup(_ => _.CreateClient(It.IsAny<string>())).Returns(client);
+
+            _client = new MockBinListClient(httpClientFactory.Object);
             _ccMatrixRepository = new CCMatrixMockRepository();
             _cardCostRepository = new CardCostMockRepository();
             _service = new CardCostService(_cardCostRepository, _ccMatrixRepository, _client, _mapper);

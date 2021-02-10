@@ -26,8 +26,14 @@ namespace CardCost.Infrastructure.Services
 
         public async Task<string> GetDataAsync(string pan)
         {
-            var validCountry = "GR";
-            return await Task.Run(() => validCountry);
+            HttpClient httpClient = _httpClientFactory.CreateClient("binlist");
+            var response = await httpClient.GetStringAsync(pan);
+
+            dynamic data = JObject.Parse(response);
+
+            var countryCode = (string)data.country;
+
+            return countryCode;
         }
 
         #endregion
