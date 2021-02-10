@@ -15,13 +15,13 @@ namespace CardCost.Infrastructure.Data.MockData
                 new Ccmatrix()
                 {
                     Id = 1,
-                    Country = "GE",
-                    Cost = 12
+                    Country = "US",
+                    Cost = 10
                 },
                 new Ccmatrix()
                 {
                     Id = 2,
-                    Country = "ES",
+                    Country = "GR",
                     Cost = 15
                 },
                 new Ccmatrix()

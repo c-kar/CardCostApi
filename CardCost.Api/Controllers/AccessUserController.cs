@@ -1,11 +1,7 @@
-﻿using AutoMapper;
-using CardCost.Application.Interfaces;
+﻿using CardCost.Application.Interfaces;
 using CardCost.Core.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CardCost.Api.Controllers
@@ -16,17 +12,15 @@ namespace CardCost.Api.Controllers
     {
         #region Fields
 
-        private readonly IMapper _mapper;
         private IAccessUserService _userService;
 
         #endregion
 
         #region Constructor
 
-        public AccessUserController(IAccessUserService userService, IMapper mapper)
+        public AccessUserController(IAccessUserService userService)
         {
             _userService = userService;
-            _mapper = mapper;
         }
 
         #endregion
@@ -37,9 +31,6 @@ namespace CardCost.Api.Controllers
         [HttpPost("Login")]
         public async Task<IActionResult> Authenticate([FromBody] AccessUserInput userParams)
         {
-            if (userParams == null)
-                return BadRequest();
-
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
@@ -54,9 +45,6 @@ namespace CardCost.Api.Controllers
         [HttpPost("Register")]
         public async Task<IActionResult> RegisterUser([FromBody] AccessUserInput userParams)
         {
-            if (userParams == null)
-                return BadRequest();
-
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 

@@ -87,6 +87,10 @@ namespace CardCost.Api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            var cardCost = await _clearingCostService.GetClearingCost(id);
+            if (cardCost == null)
+                return NotFound();
+
             await _clearingCostService.UpdateClearingCost(id, request);
             return Ok("Clearing Cost updated successfully.");
         }
@@ -99,6 +103,11 @@ namespace CardCost.Api.Controllers
         [Produces("application/json")]
         public async Task<IActionResult> Delete(int id)
         {
+            var costRecord = await _clearingCostService.GetClearingCost(id);
+
+            if (costRecord == null)
+                return NotFound();
+
             await _clearingCostService.DeleteClearingCost(id);
             return Ok("Clearing Cost deleted successfully.");
         }

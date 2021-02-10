@@ -28,9 +28,15 @@ namespace CardCost.Infrastructure.Repositories.Mock
 
         public Task<Ccmatrix> GetByIdAsync(int id) => Task.Run(() => CCMatrixMockData.Current.CCMatrix.FirstOrDefault(x => x.Id == id));
 
-        public Task UpdateAsync(Ccmatrix entity)
+        public async Task UpdateAsync(Ccmatrix entity)
         {
-            throw new NotImplementedException();
+            var rec = await Task.Run(() => CCMatrixMockData.Current.CCMatrix.FirstOrDefault(x => x.Id == entity.Id));
+
+            if (rec != null)
+            {
+                rec.Country = entity.Country;
+                rec.Cost = entity.Cost;
+            }
         }
     }
 }

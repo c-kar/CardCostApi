@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CardCost.Application", "Car
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{FCEA92BC-7740-45F0-AF83-5671A6DC08A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardCost.Application.Tests", "CardCost.Application.Tests\CardCost.Application.Tests.csproj", "{415F109D-1551-4ECB-8A9D-DD5AC6C143AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CardCost.Tests", "CardCost.Tests\CardCost.Tests.csproj", "{415F109D-1551-4ECB-8A9D-DD5AC6C143AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

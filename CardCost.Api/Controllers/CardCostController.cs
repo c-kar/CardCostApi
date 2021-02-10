@@ -30,16 +30,13 @@ namespace CardCost.Api.Controllers
         [Produces("application/json")]
         public async Task<IActionResult> GetCardDetails([FromBody] CardCostInput request)
         {
-            if (request == null)
-                return BadRequest();
-
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             var cardData = await _cardCostService.GetCardData(request);
 
             if (cardData == null)
-                return NoContent();
+                return BadRequest("Please enter a valid card number.");
             return Ok(cardData);
         }
 

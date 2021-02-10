@@ -7,6 +7,7 @@ using CardCost.Core.Repositories;
 using CardCost.Infrastructure.Interfaces;
 using System;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace CardCost.Application.Services
 {
@@ -18,6 +19,7 @@ namespace CardCost.Application.Services
         private readonly ICCMatrixRepository _clearingCostRepository;
         private readonly IBinListClient _CardCostClient;
         private readonly IMapper _mapper;
+        private const int CardNumberLength = 16;
 
         #endregion
 
@@ -43,8 +45,9 @@ namespace CardCost.Application.Services
         {
             string iin;
             var response = new BaseModel();
+            var isValid = this.IsValidCardNumber(request);
 
-            if (request != null || !string.IsNullOrWhiteSpace(request.Card_Number))
+            if (isValid)
             {
                 // keep first-6 digits
                 iin = this.ClearPanNumber(request.Card_Number);
@@ -112,6 +115,16 @@ namespace CardCost.Application.Services
             var entity = _mapper.Map<Iinlist>(ccModel);
 
             return entity;
+        }
+
+        private bool IsValidCardNumber(CardCostInput request)
+        {
+            return request != null &&
+                request.Card_Number != null &&
+                !string.IsNullOrWhiteSpace(request.Card_Number) &&
+                !string.IsNullOrEmpty(request.Card_Number) &&
+                request.Card_Number.Length == CardNumberLength &&
+                request.Card_Number.All(char.IsDigit);
         }
 
         #endregion

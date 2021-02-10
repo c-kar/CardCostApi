@@ -36,28 +36,38 @@ namespace CardCost.Application.Services
 
         public async Task<AccessUser> CreateUser(AccessUserInput request)
         {
-            if(request != null)
+            var isValid = this.ValidateRequest(request);
+
+            if (isValid)
             {
                 byte[] passwordHash, passwordSalt;
                 this.CreatePasswordHash(request.Password, out passwordHash, out passwordSalt);
 
-                var userEntity = _mapper.Map<AccessUser>(request);
+                try
+                {
+                    var userEntity = _mapper.Map<AccessUser>(request);
 
-                userEntity.PasswordHash = passwordHash;
-                userEntity.PasswordSalt = passwordSalt;
+                    userEntity.PasswordHash = passwordHash;
+                    userEntity.PasswordSalt = passwordSalt;
 
-                var user = await _accessUserRepository.AddUserAsync(userEntity);
-                if (user == null)
-                    return null;
-                return user;
+                    var user = await _accessUserRepository.AddUserAsync(userEntity);
+                    if (user == null)
+                        return null;
+                    return user;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"An error has occured. {ex}");
+                }
             }
-
             return null;
         }
 
         public async Task<AccessUser> GetUser(AccessUserInput request)
         {
-            if(request != null)
+            var isValid = this.ValidateRequest(request);
+
+            if (isValid)
             {
                 var user = await _accessUserRepository.GetUserAsync(request.Username);
 
@@ -66,8 +76,6 @@ namespace CardCost.Application.Services
 
                 user.PasswordHash = new byte[0];
                 user.PasswordSalt = new byte[0];
-                if (user == null)
-                    return null;
 
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var key = Encoding.ASCII.GetBytes(BearerSecret);
@@ -86,13 +94,13 @@ namespace CardCost.Application.Services
 
                 return user;
             }
-            
+
             return null;
         }
 
         #endregion
 
-        #region Create/Verify Password Hash
+        #region Private Methods
 
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
@@ -110,12 +118,21 @@ namespace CardCost.Application.Services
                 var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
                 for (int i = 0; i < computedHash.Length; i++)
                 {
-                    if (computedHash[i] != passwordHash[i]) return false; 
+                    if (computedHash[i] != passwordHash[i]) return false;
                 }
             }
             return true;
         }
 
-        #endregion
-    }
+        private bool ValidateRequest(AccessUserInput request)
+        {
+            return request != null &&
+                !string.IsNullOrEmpty(request.Password) &&
+                !string.IsNullOrWhiteSpace(request.Password) &&
+                !string.IsNullOrEmpty(request.Username) &&
+                !string.IsNullOrWhiteSpace(request.Username);
+        }
+
+    #endregion
+}
 }
